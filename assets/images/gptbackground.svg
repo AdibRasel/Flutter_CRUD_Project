@@ -1,0 +1,9 @@
+<svg width="100%" height="100%" viewBox="0 0 1440 600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="white"/>
+  <path fill="white" stroke="lightgray" stroke-width="2"
+        d="M0,400 C200,300 400,500 600,400 C800,300 1000,500 1200,400 C1400,300 1600,500 1800,400 V600 H0Z">
+  </path>
+  <path fill="white" stroke="lightgray" stroke-width="2" opacity="0.7"
+        d="M0,450 C200,350 400,550 600,450 C800,350 1000,550 1200,450 C1400,350 1600,550 1800,450 V600 H0Z">
+  </path>
+</svg>
