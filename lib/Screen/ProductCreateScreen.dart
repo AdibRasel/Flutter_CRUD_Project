@@ -1,3 +1,4 @@
+import 'package:crud/Utility/Utility.dart';
 import 'package:flutter/material.dart';
 import 'package:crud/Style/Style.dart';
 
@@ -8,6 +9,65 @@ class ProductCreateScreen extends StatefulWidget {
 
 class _ProductCreateScreenState extends State<ProductCreateScreen> {
   
+
+  Map<String, String> FormValues={ "Img": "", "ProductCode": "", "ProductName": "",  "Qty": "",  "TotalPrice": "", "UnitPrice": "" };
+
+
+
+  InputOnChange(FormValuesKey, InputValue){
+
+    setState(() {
+
+      FormValues.update(FormValuesKey, (value) => InputValue);
+      // FormValues.update(FormValuesKey, (ekhane update kora lagte pare) => InputValue);
+
+    });
+
+  }
+
+
+  FormOnSubmit(){
+
+    
+    if(FormValues['ProductName']!.isEmpty){
+      ErrorToast("Please enter Product Name");
+    }  
+    
+    
+     if(FormValues['ProductCode']!.isEmpty){
+      ErrorToast("Please enter Product Code");
+    } 
+    
+    
+     if(FormValues['Img']!.isEmpty){
+      ErrorToast("Please enter Product Image URL");
+    } 
+    
+    
+     if(FormValues['UnitPrice']!.isEmpty){
+      ErrorToast("Please enter Product Unit Price");
+    }  
+    
+    
+     if(FormValues['TotalPrice']!.isEmpty){
+     ErrorToast("Please enter Product Total Price");
+    } 
+    
+    
+     if(FormValues['Qty']!.isEmpty){
+      ErrorToast("Please enter Product Quantity");
+    } else{
+        
+        SuccessToast("Product Created Successfully");
+    
+    
+    }
+
+
+
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +90,11 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                   
                   TextFormField(
                     decoration: AppInputDecoration('Product Name'),
-                    onSaved: (value) {
+
+                    onChanged: (InputValue) {
+                      InputOnChange("ProductName", InputValue);
                     },
+
                   ),
 
 
@@ -44,8 +107,11 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
 
                   TextFormField(
                     decoration: AppInputDecoration('Product Code'),
-                    onSaved: (value) {
+
+                   onChanged: (InputValue) {
+                      InputOnChange("ProductCode", InputValue);
                     },
+
                   ),
 
 
@@ -58,8 +124,11 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
 
                   TextFormField(
                     decoration: AppInputDecoration('Product Image URL'),
-                    onSaved: (value) {
+                  
+                    onChanged: (InputValue) {
+                      InputOnChange("Img", InputValue);
                     },
+                    
                   ),
 
 
@@ -75,8 +144,10 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                     decoration: AppInputDecoration('Unit Price'),
                     keyboardType: TextInputType.number,
                    
-                    onSaved: (value) {
+                   onChanged: (InputValue) {
+                      InputOnChange("UnitPrice", InputValue);
                     },
+
                   ),
 
 
@@ -90,9 +161,12 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                   TextFormField(
                     decoration: AppInputDecoration('Total Price'),
                     keyboardType: TextInputType.number,
-                   
-                    onSaved: (value) {
+                       
+                   onChanged: (InputValue) {
+                      InputOnChange("TotalPrice", InputValue);
                     },
+
+
                   ),
 
 
@@ -102,7 +176,8 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
 
 
                   AppDrropDownStyle(
-                    DropdownButtonFormField<String>(
+                    DropdownButton(
+                      value: FormValues['Qty'],
                       items: const [
                         DropdownMenuItem(child: Text('Select Qt'), value: ''),
                         DropdownMenuItem(child: Text('1 pcs'), value: '1 pcs'),
@@ -110,13 +185,14 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                         DropdownMenuItem(child: Text('3 pcs'), value: '3 pcs'),
                         DropdownMenuItem(child: Text('4 pcs'), value: '4 pcs'),
                       ],
+            
+                      onChanged: (InputValue) {
+                          InputOnChange("Qty", InputValue);
+                        },
 
-                      onChanged: (value) {
-                      },
-                     
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                      ),
+
+                      underline: Container(),
+                      isExpanded: true,
                     ),
                   ),
 
@@ -127,6 +203,7 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                   ElevatedButton(
                     style: AppButtonStyle(),
                     onPressed: () {
+                      FormOnSubmit();
                     },
                     child: SuccessButtonChild('Submit'),
                   ),
