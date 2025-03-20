@@ -4,8 +4,9 @@ import 'package:http/http.dart' as http;
 
 import '../Utility/Utility.dart';	
 
-var BaseURL = "http://localhost:5000/api/v1/";
+var BaseURL = "http://192.168.0.100:5000/api/v1/";
 
+// See All Product
 Future<List> ProductListAll()async{
   // Future হচ্ছে একটা ডাটা যেটা আসবে ভবিষ্যতে। এখানে আমরা ডাটা পেতে চাইছি একটা লিস্টের মতো হবে। 
 
@@ -43,7 +44,7 @@ Future<List> ProductListAll()async{
 
 
 
-
+// Create Product
 Future <bool> ProductCreateRequest(FormValues) async {
   // Future হচ্ছে একটা ডাটা যেটা আসবে ভবিষ্যতে। এখানে আমরা ডাটা পেতে চাইছি একটা বুলিয়ানের এর মত হবে।
 
@@ -74,4 +75,32 @@ Future <bool> ProductCreateRequest(FormValues) async {
 
 
 
+
+// Delete Product
+Future<bool> ProductDeleteRequest(ProductID) async {
+  // Future হচ্ছে একটা ডাটা যেটা আসবে ভবিষ্যতে। এখানে আমরা ডাটা পেতে চাইছি একটা বুলিয়ানের এর মত হবে।
+
+  var URL = Uri.parse("${BaseURL}delete/$ProductID");
+
+  // var PostBody = json.encode({"delete": ProductID});
+
+  var PostHeader = {
+    "Content-Type": "application/json"
+  };
+
+  // var response = await http.delete(URL, headers: PostHeader, body: PostBody) ;
+  var response = await http.delete(URL, headers: PostHeader) ;
+
+  var ResultCode = response.statusCode;
+  var ResulBody = json.decode(response.body);
+
+  if(ResultCode == 200 && ResulBody['status'] == "success"){
+    SuccessToast("Product deleted successfully");
+    return true;
+  } else{
+    ErrorToast("Delete Failed ! try again");
+    return false;
+  }
+
+}
 
