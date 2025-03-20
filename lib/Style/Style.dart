@@ -17,6 +17,18 @@ const colorDarkBlue = Color.fromRGBO(44, 62, 80, 1);
 //   );
 // }
 
+SliverGridDelegateWithFixedCrossAxisCount ProductGridViewStyle (){
+  
+  return const SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2,
+    mainAxisSpacing: 2,
+    mainAxisExtent: 250,
+  );
+
+}
+
+
+
 Widget ScreenBackground(BuildContext context) {
   return FutureBuilder<String>(
     future: rootBundle.loadString('assets/images/gptbackground.svg'),
