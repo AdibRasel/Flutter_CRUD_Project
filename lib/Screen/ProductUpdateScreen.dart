@@ -3,19 +3,24 @@ import 'package:crud/Utility/Utility.dart';
 import 'package:flutter/material.dart';
 import 'package:crud/Style/Style.dart';
 
-class ProductCreateScreen extends StatefulWidget {
+
+
+
+class ProductUpdateScreen extends StatefulWidget {
+  const ProductUpdateScreen({super.key});
+
   @override
-  _ProductCreateScreenState createState() => _ProductCreateScreenState();
+  State<ProductUpdateScreen> createState() => _ProductUpdateScreenState();
 }
 
-class _ProductCreateScreenState extends State<ProductCreateScreen> {
-  
+class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
 
-  Map<String, String> FormValues={ "Img": "", "ProductCode": "", "ProductName": "",  "Qty": "",  "TotalPrice": "", "UnitPrice": "" };
+ Map<String, String> FormValues={ "Img": "", "ProductCode": "", "ProductName": "",  "Qty": "",  "TotalPrice": "", "UnitPrice": "" };
 
   bool Loading = false; 
 
 
+  
   InputOnChange(FormValuesKey, InputValue){
 
     setState(() {
@@ -27,6 +32,9 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
 
   }
 
+
+
+  
 
   FormOnSubmit()async{
 
@@ -65,7 +73,7 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
       Loading = true;
      });
         
-     await ProductCreateRequest(FormValues);
+     await ProductCreateRequest(FormValues); // Product Update 
     
       setState((){
         Loading = false;
@@ -77,6 +85,7 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
 
 
   }
+
 
 
 
@@ -227,7 +236,7 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                     onPressed: () {
                       FormOnSubmit();
                     },
-                    child: SuccessButtonChild('Submit'),
+                    child: SuccessButtonChild('Update'),
                   ),
                 ],
               ),
