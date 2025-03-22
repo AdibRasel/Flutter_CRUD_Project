@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter CRUD',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        useMaterial3: false,
       ),
       home: ProductGridViewScreen(),
     );

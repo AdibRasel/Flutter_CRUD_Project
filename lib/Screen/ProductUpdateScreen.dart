@@ -3,11 +3,14 @@ import 'package:crud/Utility/Utility.dart';
 import 'package:flutter/material.dart';
 import 'package:crud/Style/Style.dart';
 
+import 'ProductGridViewScreen.dart';
+
 
 
 
 class ProductUpdateScreen extends StatefulWidget {
-  const ProductUpdateScreen({super.key});
+  final Map ProductItem;
+  const ProductUpdateScreen(this.ProductItem, {Key? key}) : super(key: key);
 
   @override
   State<ProductUpdateScreen> createState() => _ProductUpdateScreenState();
@@ -18,6 +21,22 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
  Map<String, String> FormValues={ "Img": "", "ProductCode": "", "ProductName": "",  "Qty": "",  "TotalPrice": "", "UnitPrice": "" };
 
   bool Loading = false; 
+
+
+  // প্রথমে এই ফাংশন টা কল হবে যখন এই স্ক্রিন টা লোড হবে। এই ফাংশন টা কল হবে প্রথমে।
+  @override
+  void initState() {
+    setState(() {
+                                        // উপরের ক্লাসের আইটেম ব্যবহার করতে widget. ব্যবহার করতে হবে।
+      FormValues.update("Img", (value) => widget.ProductItem['Img']);
+      FormValues.update("ProductCode", (value) => widget.ProductItem['ProductCode']);
+      FormValues.update("ProductName", (value) => widget.ProductItem['ProductName']);
+      FormValues.update("Qty", (value) => widget.ProductItem['Qty']);
+      FormValues.update("TotalPrice", (value) => widget.ProductItem['TotalPrice']);
+      FormValues.update("UnitPrice", (value) => widget.ProductItem['UnitPrice']);
+
+    });
+  }
 
 
   
@@ -73,11 +92,22 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
       Loading = true;
      });
         
-     await ProductCreateRequest(FormValues); // Product Update 
-    
+     var Result = await ProductUpdateRequest(FormValues, widget.ProductItem['_id']); // Product Update 
+
+
+  
       setState((){
         Loading = false;
       });
+
+
+      if(Result == true ){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ProductGridViewScreen()));
+      }
+
+      if(Result == false){
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => ProductGridViewScreen()), (Route route)=>false);
+      }
 
     
     }
@@ -94,7 +124,7 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Product'),
+        title: const Text('Update Product'),
       ),
       body: Stack(
         children: [
@@ -120,6 +150,7 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
 
                   
                   TextFormField(
+                    initialValue: FormValues['ProductName'],
                     decoration: AppInputDecoration('Product Name'),
 
                     onChanged: (InputValue) {
@@ -137,6 +168,7 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
 
 
                   TextFormField(
+                    initialValue: FormValues['ProductCode'],
                     decoration: AppInputDecoration('Product Code'),
 
                    onChanged: (InputValue) {
@@ -154,6 +186,7 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
 
 
                   TextFormField(
+                    initialValue: FormValues['Img'],
                     decoration: AppInputDecoration('Product Image URL'),
                   
                     onChanged: (InputValue) {
@@ -172,6 +205,7 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
 
 
                   TextFormField(
+                    initialValue: FormValues['UnitPrice'],
                     decoration: AppInputDecoration('Unit Price'),
                     keyboardType: TextInputType.number,
                    
@@ -190,6 +224,7 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
 
 
                   TextFormField(
+                    initialValue: FormValues['TotalPrice'],
                     decoration: AppInputDecoration('Total Price'),
                     keyboardType: TextInputType.number,
                        
@@ -210,7 +245,7 @@ class _ProductUpdateScreenState extends State<ProductUpdateScreen> {
                     DropdownButton(
                       value: FormValues['Qty'],
                       items: const [
-                        DropdownMenuItem(child: Text('Select Qt'), value: ''),
+                        DropdownMenuItem(child: Text('Select Qt'), value: 'Select Qt'),
                         DropdownMenuItem(child: Text('1 pcs'), value: '1 pcs'),
                         DropdownMenuItem(child: Text('2 pcs'), value: '2 pcs'),
                         DropdownMenuItem(child: Text('3 pcs'), value: '3 pcs'),

@@ -1,7 +1,11 @@
 import 'package:crud/RestAPI/RestClient.dart';
+import 'package:crud/Screen/ProductCreateScreen.dart';
+import 'package:crud/Screen/ProductUpdateScreen.dart';
 import 'package:crud/Style/Style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'SeeProductScree.dart';
 
 class ProductGridViewScreen extends StatefulWidget {
   const ProductGridViewScreen({super.key});
@@ -92,11 +96,22 @@ class _ProductGridViewScreenState extends State<ProductGridViewScreen> {
 
   }
 
+
+
+  UpdateButton(context, ProductItem) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ProductUpdateScreen(ProductItem)));
+  }
+
+  SeeProductButton(context, ProductItem){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Seeproductscree(ProductItem)));
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("List Product "),
+        title: const Text("List Product"),
       ),
       body: Stack(
         children: [
@@ -144,7 +159,7 @@ class _ProductGridViewScreenState extends State<ProductGridViewScreen> {
                             Expanded(
                             child: InkWell(
                                 onTap: () {
-                                print("Image tapped!");
+                                  SeeProductButton(context, ProductList[index]);
                                 },
                                 child: Container(
                                 child: Image.network(
@@ -183,7 +198,9 @@ class _ProductGridViewScreenState extends State<ProductGridViewScreen> {
                                     children: [
                                       
                                       OutlinedButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            UpdateButton(context, ProductList[index]);
+                                          },
                                           child: Icon(
                                             CupertinoIcons.pencil,
                                             size: 18,
@@ -220,6 +237,17 @@ class _ProductGridViewScreenState extends State<ProductGridViewScreen> {
                       
         ],
       ),
+
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ProductCreateScreen()));
+        },
+        child: const Icon(Icons.add),
+      ),
+
+
+
     );
   }
 }

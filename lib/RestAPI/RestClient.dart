@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 import '../Utility/Utility.dart';	
 
-var BaseURL = "http://192.168.0.100:5000/api/v1/";
+var BaseURL = "https://flutter-backend-all-api.onrender.com/api/v1/";
 
 // See All Product
 Future<List> ProductListAll()async{
@@ -71,6 +71,39 @@ Future <bool> ProductCreateRequest(FormValues) async {
   }
 
 }
+
+
+
+
+
+// Create Product
+Future <bool> ProductUpdateRequest(FormValues, ID) async {
+  // Future হচ্ছে একটা ডাটা যেটা আসবে ভবিষ্যতে। এখানে আমরা ডাটা পেতে চাইছি একটা বুলিয়ানের এর মত হবে।
+
+
+  var URL = Uri.parse("${BaseURL}update/${ID}");
+
+  var PostBody = json.encode(FormValues);
+
+  var PostHeader = {
+    "Content-Type": "application/json"
+  };
+
+  var response = await http.put(URL, headers: PostHeader, body: PostBody) ;
+
+  var ResultCode = response.statusCode;
+  var ResulBody = json.decode(response.body);
+
+  if(ResultCode == 200 && ResulBody['status'] == "success"){
+    SuccessToast("Product Update successfully");
+    return true;
+  } else{
+    ErrorToast("Request Failed ! try again");
+    return false;
+  }
+
+}
+
 
 
 
