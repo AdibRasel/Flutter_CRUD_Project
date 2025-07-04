@@ -1,8 +1,14 @@
 import 'package:crud/Screen/AspectRatioScreen.dart';
+import 'package:crud/Screen/Expandeds.dart';
+import 'package:crud/Screen/Flexibles.dart';
+import 'package:crud/Screen/FlutterBootstrap.dart';
 import 'package:crud/Screen/FractionalySizedBox.dart';
 import 'package:crud/Screen/LayoutBuilder.dart';
+import 'package:crud/Screen/MediaQuery.dart';
 import 'package:crud/Screen/ProductGridViewScreen.dart';
+import 'package:crud/Screen/ResponsiveGrid.dart';
 import 'package:crud/Screen/SingleChildScrollView.dart';
+import 'package:crud/Screen/SizeExamples.dart';
 import 'package:flutter/material.dart';
 
 // এখানে তোমার সব পেজ ইম্পোর্ট করতে হবে
@@ -68,23 +74,44 @@ class ResponsiveDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.settings_ethernet),
-            title: const Text("Breakpoints Design"),
+            title: const Text("Expanded"),
             onTap: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (_) => const BreakpointsPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const Expandeds()));
             },
           ),
           ListTile(
             leading: const Icon(Icons.screen_search_desktop),
-            title: const Text("Responsive Grid Layouts"),
+            title: const Text("Flexible"),
             onTap: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (_) => const GridLayoutPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const Flexibles()));
             },
           ),
           ListTile(
             leading: const Icon(Icons.settings),
-            title: const Text("Custom Responsive Utilities"),
+            title: const Text("Media Query"),
             onTap: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (_) => const ResponsiveUtilsPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const MediaQuerys()));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text("Responsive Grid"),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const ResponsiveGrids()));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text("Flutter Bootstrap"),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const FlutterBootstrap()));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text("Size Examples"),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const SizeExamples()));
             },
           ),
         ],
